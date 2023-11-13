@@ -13,6 +13,9 @@ import {
 //justifyContent to move around x-axis, while alignItems move around y-axis.
 //the padding to leave a space to write above the button.
 //we only pass the name of the function if we want to use it.
+
+import GoalItem from './Components/GoalItem';
+
 export default function App() {
   //we will replace setEnteredGoal and put it into enteredGoal.
   const [enteredGoal, setEnteredGoal] = useState('');
@@ -46,11 +49,7 @@ export default function App() {
         <FlatList
           keyExtractor={(item, index) => item.id} 
           data={courseGoals}
-          renderItem={itemData =>(
-            <View style={styles.listItem}>
-              <Text>{itemData.item.value}</Text>
-            </View>
-          )}
+          renderItem={itemData => <GoalItem title={itemData.item.value} /> }
         />
       </View>
       </ScrollView>
@@ -104,11 +103,5 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 2
   },
-  listItem: {
-    padding: 10,
-    marginVertical: 10,
-    backgroundColor: '#ff7f50',
-    borderEndColor: 'black',
-    borderWidth: 1
-  }
+  
 });
