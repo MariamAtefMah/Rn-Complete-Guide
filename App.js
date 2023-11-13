@@ -1,14 +1,21 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import {
+  StyleSheet,
+  Text, View,
+  TextInput,
+  Button,
+  ScrollView,
+  FlatList, //used for very long lists.
+} from 'react-native';
 //flexDirection to control how button and textInput will appear in App.
 //justifyContent to move around x-axis, while alignItems move around y-axis.
 //the padding to leave a space to write above the button.
 //we only pass the name of the function if we want to use it.
 export default function App() {
   //we will replace setEnteredGoal and put it into enteredGoal.
-  const [enteredGoal, setEnteredGoal] = useState();
+  const [enteredGoal, setEnteredGoal] = useState('');
   const [courseGoals, setCourseGoals] = useState([]);
   //this is function.
   const goalInputHandler = (enteredText) => {
@@ -18,10 +25,15 @@ export default function App() {
   //...courseGoals to create array, of course goals of enteredGoals.
   const addGoalHandler = () => {
     //setCourseGoals([...courseGoals, enteredGoal]);
-    setCourseGoals(currentGoals => [...currentGoals, enteredGoal]);
+    setCourseGoals(currentGoals => [
+      ...currentGoals,
+      { id: Math.random().toString(), value: enteredGoal}
+    ]);
+    //it will have array of objects each object has its own key
   };
-
+  //Anything will run should be inside the reurn function.
   return (
+    <ScrollView>
     <View style={styles.screen}> 
       <View style={styles.inputContainer}>
         <TextInput
@@ -31,13 +43,19 @@ export default function App() {
         />
         <Button title='ADD' onPress={addGoalHandler}/>
       </View>
-        <View>
-        {courseGoals.map((goal) => (
-        <View  key={goal} style={styles.listItem}>
-        <Text>{goal}</Text>
-        </View>
-        ))}
+        <FlatList
+          keyExtractor={(item, index) => item.id} 
+          data={courseGoals}
+          renderItem={itemData =>(
+            <View style={styles.listItem}>
+              <Text>{itemData.item.value}</Text>
+            </View>
+          )}
+        />
       </View>
+      </ScrollView>
+      );
+    }
       {/*
       <View style={{padding: 30, flexDirection: 'row', width: '80%', height: 100, 
          justifyContent: 'space-around', alignItems: 'ceter'}}>
@@ -69,9 +87,7 @@ export default function App() {
         </View>
       </View>
           */}
-    </View>
-  );
-}
+          
  //we can change screen name to any name we want, and inputcontainer and so on.
 const styles = StyleSheet.create({
   screen: {
