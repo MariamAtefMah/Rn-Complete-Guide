@@ -33,7 +33,6 @@ export default function App() {
   };
   //Anything will run should be inside the reurn function.
   return (
-    <ScrollView>
     <View style={styles.screen}> 
         <GoalInput onAddGoal={addGoalHandler} />
         <FlatList
@@ -42,7 +41,6 @@ export default function App() {
           renderItem={itemData => <GoalItem title={itemData.item.value} /> }
         />
       </View>
-      </ScrollView>
       );
     }
       {/*
