@@ -8,6 +8,7 @@ import {
   Button,
   ScrollView,
   FlatList, //used for very long lists.
+  Modal,
 } from 'react-native';
 //flexDirection to control how button and textInput will appear in App.
 //justifyContent to move around x-axis, while alignItems move around y-axis.
@@ -20,6 +21,7 @@ import GoalInput from './Components/GoalInput';
 export default function App() {
   //we will replace setEnteredGoal and put it into enteredGoal.
   const [courseGoals, setCourseGoals] = useState([]);
+  const [isAddMode, setIsAddMode] = useState(false);
   //this is function.
   
   
@@ -30,17 +32,38 @@ export default function App() {
       { id: Math.random().toString(), value: goalTitle}
     ]);
     //it will have array of objects each object has its own key
-  };
+    setIsAddMode(false);
+    };
+    const removeGoalHandler = goalId => {
+      setCourseGoals(currentGoals => {
+        return currentGoals.filter((goal) => goal.id !== goalId);
+      });
+    };
+
+    const cancelGoalHandler = () => {
+      setIsAddMode(false);
+    };
   //Anything will run should be inside the reurn function.
   return (
-    <View style={styles.screen}> 
-        <GoalInput onAddGoal={addGoalHandler} />
-        <FlatList
-          keyExtractor={(item, index) => item.id} 
-          data={courseGoals}
-          renderItem={itemData => <GoalItem title={itemData.item.value} /> }
-        />
-      </View>
+      <View style={styles.screen}> 
+          <Button title='Add New Goal' onPress={() => setIsAddMode(true)}/>
+          <GoalInput 
+            visible={isAddMode} 
+            onAddGoal={addGoalHandler}
+            onCancel={cancelGoalHandler}
+          />
+          <FlatList
+            keyExtractor={(item, index) => item.id} 
+            data={courseGoals}
+            renderItem={itemData => (
+              <GoalItem 
+                id={itemData.item.id}
+                onDelete={removeGoalHandler}
+                title={itemData.item.value}
+              />
+            )}
+          />
+        </View>
       );
     }
       {/*
