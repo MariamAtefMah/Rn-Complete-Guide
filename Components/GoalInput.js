@@ -29,7 +29,7 @@ const addGoalHandler = () => {
                 onChangeText={goalInputHandler}
                 value={enteredGoal}
                 />
-                <Button title='Cancel All' color='red' onPress={props.onCancel}/>
+                <Button title='Cancel All' color='red' onPress={props.onCancel} />
                 <Button title='ADD' onPress={addGoalHandler}/>
                 {/*onPress={() => props.onAddGoal(enteredGoal)}*/}
             </View>
@@ -50,6 +50,11 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         marginBottom: 10, 
       },
+    /*CanceButton: {
+        padding: 10,
+        borderColor: 'black',
+        marginBottom: 10,
+    },*/
 });
 
 export default GoalInput;
