@@ -15,22 +15,19 @@ import {
 //we only pass the name of the function if we want to use it.
 
 import GoalItem from './Components/GoalItem';
+import GoalInput from './Components/GoalInput';
 
 export default function App() {
   //we will replace setEnteredGoal and put it into enteredGoal.
-  const [enteredGoal, setEnteredGoal] = useState('');
   const [courseGoals, setCourseGoals] = useState([]);
   //this is function.
-  const goalInputHandler = (enteredText) => {
-    setEnteredGoal(enteredText);
-  };
-
-  //...courseGoals to create array, of course goals of enteredGoals.
-  const addGoalHandler = () => {
-    //setCourseGoals([...courseGoals, enteredGoal]);
+  
+  
+  const addGoalHandler = goalTitle => {
+    //setCourseGoals([...courseGoals (An array), enteredGoal]);
     setCourseGoals(currentGoals => [
       ...currentGoals,
-      { id: Math.random().toString(), value: enteredGoal}
+      { id: Math.random().toString(), value: goalTitle}
     ]);
     //it will have array of objects each object has its own key
   };
@@ -38,14 +35,7 @@ export default function App() {
   return (
     <ScrollView>
     <View style={styles.screen}> 
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Course Goal" style={styles.input} 
-          onChangeText={goalInputHandler}
-          value={enteredGoal}
-        />
-        <Button title='ADD' onPress={addGoalHandler}/>
-      </View>
+        <GoalInput onAddGoal={addGoalHandler} />
         <FlatList
           keyExtractor={(item, index) => item.id} 
           data={courseGoals}
@@ -92,16 +82,4 @@ const styles = StyleSheet.create({
   screen: {
     padding: 50
   },
-  inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  input:{ 
-    width: '80%',
-    padding: 2,
-    borderColor: 'black',
-    borderWidth: 2
-  },
-  
 });
