@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "80%",
-    padding: 4,
+    paddingHorizontal: 10,
     borderColor: "black",
     borderWidth: 2,
     marginBottom: 10,
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     //marginBottom: 10,
   },
   CancelButton: {
-    with: "40%",
+    width: "40%",
   },
 });
 
