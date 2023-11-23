@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TextInput, Button, Modal } from "react-native";
+//import punycode from "punycode/";  //for improving performance while running
 
 const GoalInput = (props) => {
   const [enteredGoal, setEnteredGoal] = useState("");
