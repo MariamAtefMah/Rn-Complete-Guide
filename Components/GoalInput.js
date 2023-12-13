@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TextInput, Button, Modal } from "react-native";
 //import punycode from "punycode/";  //for improving performance while running
-
+// (props(can be any name)) => this is arrow function.
 const GoalInput = (props) => {
   const [enteredGoal, setEnteredGoal] = useState("");
 
